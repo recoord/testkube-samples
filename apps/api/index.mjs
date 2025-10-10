@@ -45,5 +45,5 @@ app.get("/hello-pg", async (_, response) => {
 GracefulShutdown(app);
 
 http.createServer(app).listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 server running on localhost:8080`);
+  console.log(`🚀 server running full steam ahead on localhost:8080`);
 });
