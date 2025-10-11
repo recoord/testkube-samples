@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: hello-app
 spec:
+  type: LoadBalancer
   selector:
     app: hello-app
   ports:
-    - name: http-web
+    - name: testkube-api
       protocol: TCP
       port: 80
       targetPort: 8080
