@@ -46,3 +46,10 @@ For E2E test, you should first run the application as described above:
 ```
 npm run test:e2e
 ```
+
+
+## Continuous Delivery Simulation Git Hooks
+You can find a pre-commit and a post-commit hook in the `.githooks` directory.
+These were written to simulate a continuous delivery pipeline set up with a tool like GitHub Actions.
+
+Copy them to `.git/hooks` to try out the workflow that takes you from Commit to deployment to your local Kubernetes.
