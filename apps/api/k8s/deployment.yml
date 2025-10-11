@@ -19,3 +19,21 @@ spec:
           ports:
             - name: testkube-api
               containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "localhost"
+            - name: DB_PORT
+              value: "5432"
+        - name: db
+          image: postgres
+          imagePullPolicy: Always
+          ports:
+            - name: postgres-port
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "api-db"
+            - name: POSTGRES_USER
+              value: api-user
+            - name: POSTGRES_PASSWORD
+              value: api-password
