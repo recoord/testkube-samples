@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Pre-commit hook: ensure unit tests pass before committing on main branch.
+# 1. Force docker-compose down to ensure a clean environment.
+# 2. Run unit tests (vitest) via workspace root `npm test` (turbo will fan out).
+# 3. If not on main, allow commit without running tests (change if you want always).
+
+set -euo pipefail
+
+# Colors
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+RESET="\033[0m"
+
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+echo -e "${YELLOW}[pre-commit] docker-compose down (cleaning up) ...${RESET}";
+if command -v docker-compose >/dev/null 2>&1; then
+  docker-compose down --remove-orphans || {
+    echo -e "${RED}[pre-commit] docker-compose down failed${RESET}"; exit 1; }
+else
+  echo -e "${YELLOW}[pre-commit] docker-compose not installed, skipping down${RESET}";
+fi
+
+echo -e "${YELLOW}[pre-commit] Running unit tests...${RESET}";
+
+# Ensure we have dependencies installed first (skip if node_modules present).
+if [ ! -d "node_modules" ]; then
+  echo -e "${YELLOW}[pre-commit] Installing root dependencies (missing node_modules) ...${RESET}";
+  npm install --no-audit --no-fund --silent || { echo -e "${RED}[pre-commit] npm install failed${RESET}"; exit 1; }
+fi
+
+if npm test --silent; then
+  echo -e "${GREEN}[pre-commit] Unit tests passed. Proceeding with commit.${RESET}";
+  exit 0
+else
+  echo -e "${RED}[pre-commit] Unit tests failed. Commit aborted.${RESET}";
+  exit 1
+fi

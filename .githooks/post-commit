@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# This post-commit hook simulates continues delivery by automatically 
+# deploying changes to the backend to kubernetes.
+
+set -e
+
+echo "Running docker-compose build..."
+docker-compose build
+
+if [ $? -eq 0 ]; then
+    echo "Docker build completed successfully. Rolling out to Kubernetes..."
+    kubectl apply -f apps/api/k8s/deployment.yml
+    kubectl rollout restart deployment/hello-app
+    
+    if [ $? -eq 0 ]; then
+        echo "Kubernetes deployment finished."
+    else
+        echo "Failed to restart Kubernetes deployment."
+        exit 1
+    fi
+else
+    echo "Docker build failed. Skipping Kubernetes deployment restart."
+    exit 1
+fi
+
+echo "Post-commit hook completed successfully."
