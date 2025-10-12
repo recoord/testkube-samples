@@ -63,6 +63,7 @@ using `kind`, docker and git pre and post-commit hooks.
 
 cd apps/web
 npm ci
+npm run build
 npm run preview
 ```
 4. Visit `localhost:4173` and try it out
