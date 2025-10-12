@@ -66,4 +66,5 @@ npm ci
 npm run build
 npm run preview
 ```
-4. Visit `localhost:4173` and try it out
+4. Edit your hosts file so that `api.example.local` is mapped to 127.0.0.1
+5. Visit `localhost:4173` and try it out
