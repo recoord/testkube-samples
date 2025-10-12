@@ -55,14 +55,14 @@ using `kind`, docker and git pre and post-commit hooks.
 ### Prerequisites
 1. Install and run Docker
 2. Install kind
-  * windows - choco install kind
-  * macos - brew install kind
+  * windows - `choco install kind`
+  * macos - `brew install kind`
 3. Run the following commands
-```
+```bash
 ./vullnet.sh
 
 cd apps/api
 npm ci
 npm run preview
 ```
-4. Visit localhost:4173 and try it out
+4. Visit `localhost:4173` and try it out

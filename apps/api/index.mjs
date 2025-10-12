@@ -16,7 +16,7 @@ app.get("/hello", (request, response) => {
   console.log("GET /hello");
   const name = request.query?.name;
   console.log("Test", name);
-  return response.json({ message: `hello, ${name ?? "world TestAgain."}` });
+  return response.json({ message: `hello, ${name ?? "world WickedTest."}` });
 });
 
 app.get("/hello-pg", async (_, response) => {
