@@ -61,7 +61,7 @@ using `kind`, docker and git pre and post-commit hooks.
 ```bash
 ./vullnet.sh
 
-cd apps/api
+cd apps/web
 npm ci
 npm run preview
 ```
