@@ -48,8 +48,21 @@ npm run test:e2e
 ```
 
 
-## Continuous Delivery Simulation Git Hooks
-You can find a pre-commit and a post-commit hook in the `.githooks` directory.
-These were written to simulate a continuous delivery pipeline set up with a tool like GitHub Actions.
+## Continuous Delivery Simulation with a Kind k8s cluster & Git Hooks
+This repo is an example we can simulate continuous delivery with k8s
+using `kind`, docker and git pre and post-commit hooks.
 
-Copy them to `.git/hooks` to try out the workflow that takes you from Commit to deployment to your local Kubernetes.
+### Prerequisites
+1. Install and run Docker
+2. Install kind
+  * windows - choco install kind
+  * macos - brew install kind
+3. Run the following commands
+```
+./vullnet.sh
+
+cd apps/api
+npm ci
+npm run preview
+```
+4. Visit localhost:4173 and try it out
